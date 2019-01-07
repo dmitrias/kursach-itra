@@ -1,0 +1,64 @@
+﻿@model Task2.Models.News
+@{
+    ViewData["Title"] = "ViewNews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        background-color: #edeef0;
+    }
+
+    table {
+        background-color: white;
+    }
+
+    tr {
+        border-style: hidden;
+        width: auto;
+    }
+
+    p {
+        padding-left:5%;
+        padding-right:5%;
+    }
+</style>
+
+
+
+
+<table class="table">
+
+    <tr>
+        <td align="center">
+            <div class="control-label">
+                <h2 class="text-center">@Model.Caption</h2>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <img src="@Model.ImageURL">
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p>@Html.Raw(Model.Text)</p>
+        </td>
+    </tr>
+
+    @if (User.IsInRole("admin"))
+    {
+        <tr>
+            <td>
+                <form asp-action="DeleteNews" asp-route-id="@Model.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </table>

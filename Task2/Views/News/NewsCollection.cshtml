@@ -1,0 +1,101 @@
+﻿@*@model IEnumerable<Task2.Models.News>*@
+@model Task2.ViewModels.PageIndexViewModel
+@addTagHelper "*, Task2"
+
+<h2 align="center">News Collection</h2>
+
+<style>
+    body {
+        background-color: #edeef0;
+    }
+
+    table {
+        margin-top: 5%;
+        background-color: white;
+    }
+
+    .control-label {
+        align-self: center;
+    }
+
+    tr {
+        border-style: hidden;
+        width: auto;
+    }
+
+    .form-control {
+        margin-top: 3%;
+    }
+
+    img {
+        width: 80%;
+        margin-bottom: 3%;
+    }
+
+    p {
+        margin-bottom: 3%;
+    }
+
+    .description {
+        height: 4em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+
+@foreach (var news in Model.EnumNews)
+{
+    @if (news.IsPublished == true)
+    {
+        <table class="table">
+
+            <tr>
+                <td align="center">
+                    <div class="control-label">
+                        <a asp-action="ViewNews" asp-route-id="@news.Id"><h2>@news.Caption</h2></a>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center">
+                    <img src="@news.ImageURL">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        <div class="description">                        
+                            @Html.Raw(news.Text)
+                        </div>
+                    <a asp-action="ViewNews" asp-route-id="@news.Id">Show more</a>
+                    </p>
+                </td>
+            </tr>
+
+        </table>
+    }
+}
+
+<page-link page-model="Model.PageViewModel" page-action="NewsCollection"></page-link>
+
+
+@*<script>
+        function title() {
+            var elem = document.getElementsByClassName('description');
+            var text = elem.innerHTML;
+            var size = 220;
+            for (var i = 0; i < elem.length; i++) {
+                if (elem[i].innerHTML.length > size) {
+                    text = elem[i].innerHTML.substr(0, size);
+                }
+                else {
+                    text = elem[i].innerHTML.substr(0, innerHTML.length);
+                }
+                elem[i].innerHTML = text+"...";
+            }
+        }
+        title();
+    </script>*@
